@@ -1,0 +1,57 @@
+{
+  "name": "proto-gen-tsd",
+  "version": "0.0.1",
+  "description": "Generate protocol buffer for TypeScript definitions",
+  "keywords": [
+    "protocol-buffer",
+    "protobuf",
+    "typescript"
+  ],
+  "homepage": "https://github.com/stringang/protoc-gen-tsd",
+  "bugs": {
+    "url": "https://github.com/stringang/protoc-gen-tsd/issues"
+  },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "author": "stringang",
+  "bin": {
+    "proto-gen-tsd": "bin/proto-gen-tsd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stringang/protoc-gen-tsd.git"
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "format": "prettier \"**/*.{ts,md}\" --write"
+  },
+  "dependencies": {
+    "google-protobuf": "^3.12.2",
+    "lodash": "^4.17.15",
+    "protobufjs": "^6.9.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-angular": "^9.0.1",
+    "@types/google-protobuf": "^3.7.2",
+    "@types/lodash": "^4.14.157",
+    "@types/node": "^14.0.14",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.6"
+  },
+  "lint-staged": {
+    "**/*.{ts,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  }
+}

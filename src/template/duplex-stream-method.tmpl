@@ -1,0 +1,3 @@
+--<%= getCommentPrefixing(`rpc ${name}(`) %>
+  public <%= _.lowerFirst(name) %>(options?: grpc.CallOptions): grpc.ClientDuplexStream<<%= requestTsType %>, <%= responseTsType %>>;
+  public <%= _.lowerFirst(name) %>(metadata?: grpc.Metadata, options?: Partial<grpc.CallOptions>): grpc.ClientDuplexStream<<%= requestTsType %>, <%= responseTsType %>>;

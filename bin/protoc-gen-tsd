@@ -1,0 +1,1 @@
+#!/usr/bin/env node --inspect-brk --require ts-node/register ./src/index.ts

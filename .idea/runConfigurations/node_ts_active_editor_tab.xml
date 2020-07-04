@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="node-ts-active-editor-tab" type="NodeJSConfigurationType" application-parameters="src/proto/echo.proto" node-parameters="--require ts-node/register" path-to-js-file="$FilePathRelativeToProjectRoot$" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>
