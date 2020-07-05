@@ -4,7 +4,7 @@ import {
 } from "google-protobuf/google/protobuf/compiler/plugin_pb";
 import {replaceProtoSuffix, withAllStdIn} from "./util";
 import { FileDescriptorProto } from "google-protobuf/google/protobuf/descriptor_pb";
-import {ExportMap} from "./wrapper";
+import {ProtoAbstractSyntaxTreeMap} from "./proto-ast-map";
 
 /**
  * This is the ProtoC compiler plugin.
@@ -22,20 +22,20 @@ withAllStdIn((inputBuff: Buffer) => {
     );
     console.log(codeGenRequest)
     const codeGenResponse = new CodeGeneratorResponse();
-    const exportMap = new ExportMap();
+    const protoAbstractSyntaxTreeMap = new ProtoAbstractSyntaxTreeMap();
     const fileNameToDescriptor: { [key: string]: FileDescriptorProto } = {};
 
     // Generate separate `.ts` files for services if param is set
     const parameter = codeGenRequest.getParameter();
     const generateGrpcNodeServices = parameter === "service=grpc-node";
 
-    // wrap data structure
+    // wrap proto abstract syntax tree structure
     codeGenRequest.getProtoFileList().forEach((protoFileDescriptor: FileDescriptorProto) => {
-      // @ts-ignore
       fileNameToDescriptor[protoFileDescriptor.getName()] = protoFileDescriptor;
-      exportMap.addFileDescriptor(protoFileDescriptor);
+      protoAbstractSyntaxTreeMap.addFileDescriptor(protoFileDescriptor);
     });
 
+    // generate .d.ts type file
     codeGenRequest.getFileToGenerateList().forEach((fileName: string) => {
       // message type definition
       const outputFileName = replaceProtoSuffix(fileName);
