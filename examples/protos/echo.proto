@@ -2,10 +2,8 @@ syntax = "proto3";
 
 package helloworld;
 
-message EchoMessage {
-  string value = 1;
-  int32 value2 = 2;
-}
+import "google/protobuf/descriptor.proto";
+
 
 service EchoService {
   rpc Echo (EchoMessage) returns (EchoMessage);
@@ -15,4 +13,26 @@ service EchoService {
   rpc EchoServerStream (EchoMessage) returns (stream EchoMessage);
 
   rpc EchoBidiStream (stream EchoMessage) returns (stream EchoMessage);
+}
+
+message EchoMessage {
+  string value = 1;
+  int32 value2 = 2;
+}
+
+message OneOfValues {
+  oneof oneof_choice {
+    int32 int_choice = 1;
+    string string_choice = 2;
+  }
+}
+
+enum TestEnum {
+  ZERO = 0;
+  ONE = 1;
+  TWO = 2;
+}
+
+extend google.protobuf.FieldOptions {
+  bool redact = 52000;
 }
