@@ -1,0 +1,12 @@
+// package: <%= packageName %>
+// file: <%= protoFileName %>
+
+/* tslint:disable */
+/* eslint-disable */
+
+<% _.forEach(imports, function(item) { %> <%- item %> <% }); %>
+
+
+<% _.forEach(messages, function(item) { %>
+  <%= templateFn('message.tmpl', item) %>
+<% }); %>

@@ -1,0 +1,47 @@
+export namespace <%= message.messageName %> {
+  export interface I<%= message.messageName %> {
+    <% _.forEach(message.fields, function(value) { %>
+      <% if (value.isMapField) { %>
+        <%- value.camelCaseName %>: Map<<%- value.mapFieldInfo.keyTypeName%>, <%- value.mapFieldInfo.valueTypeName %>>
+      <% } else { %>
+        <% if(value.isRepeatField) { %>
+          <% if(value.type == BYTES_TYPE) { %>
+            <%- value.camelCaseName %>: Array<Uint8Array | string>,
+          <% } else { %>
+            <%- value.camelCaseName %>: Array<<%- value.exportType %>>
+          <% } %>
+        <% } else { %>
+          <% if(value.type == BYTES_TYPE) { %>
+            <%- value.camelCaseName %>: Uint8Array | string,
+          <% } else { %>
+            <%- value.camelCaseName %> : <%- value.fieldObjectType%>,
+          <% } %>
+        <% } %>
+      <% } %>
+    <% }) %>
+
+    <% if (message.nestedTypes) { %>
+      <% _.forEach(message.nestedTypes, function(value) { %>
+
+      <% }) %>
+    <% } %>
+
+    <% if (message.formattedEnumListStr) { %>
+      <% _.forEach(message.formattedEnumListStr, function(value) { %>
+
+      <% }) %>
+    <% } %>
+
+    <% if (message.formattedOneofListStr) { %>
+      <% _.forEach(message.formattedOneofListStr, function(value) { %>
+
+      <% }) %>
+    <% } %>
+
+    <% if (message.formattedExtListStr) { %>
+      <% _.forEach(message.formattedExtListStr, function(value) { %>
+
+      <% }) %>
+    <% } %>
+  }
+}

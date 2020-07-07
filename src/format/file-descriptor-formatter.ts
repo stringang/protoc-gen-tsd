@@ -17,6 +17,7 @@ import {
 import { WellKnownTypesMap } from '../wellknown';
 import { DependencyFilter } from '../dependency-filter';
 import { filePathFromProtoWithoutExt, filePathToPseudoNamespace, getPathToRoot } from '../util';
+import { renderTemplate } from '../tmpl-engine';
 
 export interface IFileDescriptorProtoModel {
   packageName: string; // e.g. "foo.bar"
@@ -25,6 +26,7 @@ export interface IFileDescriptorProtoModel {
   messages: IMessageDescriptorProtoModel[];
   extensions: IExtensionDescriptorProtoModel[];
   enums: IEnumDescriptorProtoModel[];
+  templateFn: (templateName: string, params: { [key: string]: any }) => string;
 }
 
 export function formatFileDescriptorProto(
@@ -85,5 +87,6 @@ export function formatFileDescriptorProto(
     messages,
     extensions,
     enums,
+    templateFn: renderTemplate,
   };
 }

@@ -48,8 +48,8 @@ withAllStdIn((inputBuff: Buffer) => {
         fileNameToDescriptor[fileName],
         protoAbstractSyntaxTreeMap
       );
-      console.log(messageProtoModel);
-      messageTypeDefinitionFile.setContent(renderTemplate('message-tsd.tmpl', messageProtoModel));
+      // console.log(renderTemplate('proto-tsd.tmpl', messageProtoModel));
+      messageTypeDefinitionFile.setContent(renderTemplate('proto-tsd.tmpl', messageProtoModel));
       codeGenResponse.addFile(messageTypeDefinitionFile);
 
       // const file = generateGrpcNodeService(
