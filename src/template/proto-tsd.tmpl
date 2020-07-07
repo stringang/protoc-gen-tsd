@@ -3,10 +3,8 @@
 
 /* tslint:disable */
 /* eslint-disable */
+<% imports.forEach(function(item) { %> <%- item %> <% }); %>
 
-<% _.forEach(imports, function(item) { %> <%- item %> <% }); %>
-
-
-<% _.forEach(messages, function(item) { %>
-  <%= templateFn('message.tmpl', item) %>
-<% }); %>
+<%_ messages.forEach(function(item) { -%>
+<%= include('message.tmpl', { messageProtoModel: item }) %>
+<%_ }); -%>

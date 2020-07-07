@@ -1,47 +1,41 @@
-export namespace <%= message.messageName %> {
-  export interface I<%= message.messageName %> {
-    <% _.forEach(message.fields, function(value) { %>
-      <% if (value.isMapField) { %>
-        <%- value.camelCaseName %>: Map<<%- value.mapFieldInfo.keyTypeName%>, <%- value.mapFieldInfo.valueTypeName %>>
-      <% } else { %>
-        <% if(value.isRepeatField) { %>
-          <% if(value.type == BYTES_TYPE) { %>
-            <%- value.camelCaseName %>: Array<Uint8Array | string>,
-          <% } else { %>
-            <%- value.camelCaseName %>: Array<<%- value.exportType %>>
-          <% } %>
-        <% } else { %>
-          <% if(value.type == BYTES_TYPE) { %>
-            <%- value.camelCaseName %>: Uint8Array | string,
-          <% } else { %>
-            <%- value.camelCaseName %> : <%- value.fieldObjectType%>,
-          <% } %>
-        <% } %>
-      <% } %>
-    <% }) %>
+export namespace <%= messageProtoModel.message.messageName %> {
+  export interface I<%= messageProtoModel.message.messageName %> {
+  <%_ messageProtoModel.message.fields.forEach(function(value) { -%>
+    <%_ if (value.isMapField) { -%>
+    <%- value.camelCaseName %>: Map< <%- value.mapFieldInfo.keyTypeName %>, <%- value.mapFieldInfo.valueTypeName %> >
+    <%_ return; -%>
+    <%_ } -%>
+    <%_ if(value.isRepeatField && value.type === messageProtoModel.BYTES_TYPE) { -%>
+    <%_ value.camelCaseName %>: Array<Uint8Array | string>,
+    <%_ return; -%>
+    <%_ } -%>
+    <%_ if (value.isRepeatField) { -%>
+    <%- value.camelCaseName %>: Array<<%= value.exportType %>>
+    <%_ return; -%>
+    <%_ } -%>
+    <%_ if (value.type == messageProtoModel.BYTES_TYPE) { -%>
+    <%- value.camelCaseName %>: Uint8Array | string,
+    <%_ return; -%>
+    <%_ } -%>
+    <%- value.camelCaseName %>: <%- value.fieldObjectType -%>,
+  <%_ }); -%>
 
-    <% if (message.nestedTypes) { %>
-      <% _.forEach(message.nestedTypes, function(value) { %>
-
-      <% }) %>
-    <% } %>
-
-    <% if (message.formattedEnumListStr) { %>
-      <% _.forEach(message.formattedEnumListStr, function(value) { %>
-
-      <% }) %>
-    <% } %>
-
-    <% if (message.formattedOneofListStr) { %>
-      <% _.forEach(message.formattedOneofListStr, function(value) { %>
-
-      <% }) %>
-    <% } %>
-
-    <% if (message.formattedExtListStr) { %>
-      <% _.forEach(message.formattedExtListStr, function(value) { %>
-
-      <% }) %>
-    <% } %>
+  <%_ if (messageProtoModel.message.nestedTypes) { -%>
+  <%_ messageProtoModel.message.nestedTypes.forEach(function(value) { -%>
+  <%= include('message.tmpl', { messageProtoModel: value }) %>
+  <%_ }) -%>
+  <%_ } -%>
+  <%_ if (messageProtoModel.message.formattedEnumListStr) { -%>
+  <%_ messageProtoModel.message.formattedEnumListStr.forEach(function(value) { -%>
+  <%_ }) -%>
+  <%_ } -%>
+  <%_ if (messageProtoModel.message.formattedOneofListStr) { -%>
+  <% messageProtoModel.message.formattedOneofListStr.forEach(function(value) { -%>
+  <%_ }) -%>
+  <%_ } -%>
+  <%_ if (messageProtoModel.message.formattedExtListStr) { -%>
+  <%_ messageProtoModel.message.formattedExtListStr.forEach(function(value) { -%>
+  <%_ }) -%>
+  <%_ } -%>
   }
 }

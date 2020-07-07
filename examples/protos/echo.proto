@@ -6,18 +6,35 @@ import "google/protobuf/descriptor.proto";
 
 
 service EchoService {
-  rpc Echo (EchoMessage) returns (EchoMessage);
+  rpc Echo (EchoRequest) returns (EchoResponse);
 
-  rpc EchoClientStream (stream EchoMessage) returns (EchoMessage);
+  rpc EchoClientStream (stream EchoRequest) returns (EchoResponse);
 
-  rpc EchoServerStream (EchoMessage) returns (stream EchoMessage);
+  rpc EchoServerStream (EchoRequest) returns (stream EchoResponse);
 
-  rpc EchoBidiStream (stream EchoMessage) returns (stream EchoMessage);
+  rpc EchoBidiStream (stream EchoRequest) returns (stream EchoResponse);
 }
 
-message EchoMessage {
-  string value = 1;
-  int32 value2 = 2;
+message EchoRequest {
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    string number = 1;
+    PhoneType type = 2;
+  }
+
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  repeated PhoneNumber phones = 4;
+}
+
+message EchoResponse {
+  string message = 1;
 }
 
 message OneOfValues {
@@ -27,10 +44,9 @@ message OneOfValues {
   }
 }
 
-enum TestEnum {
-  ZERO = 0;
-  ONE = 1;
-  TWO = 2;
+enum Status {
+  UNKNOWN = 0;
+  SUCCESS = 1;
 }
 
 extend google.protobuf.FieldOptions {

@@ -1,18 +1,20 @@
 import * as path from 'path';
-import { template, TemplateExecutor } from 'lodash';
 import * as fs from 'fs';
+import { compile, TemplateFunction } from 'ejs';
 
 const TMPL_BASE_PATH = path.join(__dirname, 'template');
 
-const templateCache: { [template: string]: TemplateExecutor } = {};
+const templateCache: { [template: string]: TemplateFunction } = {};
 
 export function renderTemplate(templateName: string, params: { [key: string]: any }): string {
-  const template: TemplateExecutor =
-    templateCache[templateName] || (templateCache[templateName] = compile(templateName));
+  const template: TemplateFunction =
+    templateCache[templateName] || (templateCache[templateName] = compileTemplate(templateName));
 
   return template(params);
 }
 
-export function compile(templateName: string): TemplateExecutor {
-  return template(fs.readFileSync(path.join(TMPL_BASE_PATH, templateName), 'utf8'));
+export function compileTemplate(templateName: string): TemplateFunction {
+  return compile(fs.readFileSync(path.join(TMPL_BASE_PATH, templateName), 'utf8'), {
+    filename: path.join(TMPL_BASE_PATH, templateName),
+  });
 }
