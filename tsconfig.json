@@ -6,14 +6,13 @@
     "target": "es6",
     "skipLibCheck": true,
     "sourceMap": false,
-    "strict": true,
+    "outDir": "lib",
     "removeComments": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "strictNullChecks": true,
-    "stripInternal": true
+    "stripInternal": true,
+    "esModuleInterop": true
   },
   "include": [
     "src/**/*.ts"

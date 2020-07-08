@@ -1,1 +1,3 @@
-#!/usr/bin/env node --inspect-brk --require ts-node/register ./src/index.ts
+#!/usr/bin/env node
+
+require('../lib/index');

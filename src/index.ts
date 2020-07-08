@@ -48,7 +48,7 @@ withAllStdIn((inputBuff: Buffer) => {
         fileNameToDescriptor[fileName],
         protoAbstractSyntaxTreeMap
       );
-      // console.log(renderTemplate('proto-tsd.tmpl', messageProtoModel));
+
       messageTypeDefinitionFile.setContent(renderTemplate('proto-tsd.tmpl', messageProtoModel));
       codeGenResponse.addFile(messageTypeDefinitionFile);
 

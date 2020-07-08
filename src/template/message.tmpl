@@ -19,14 +19,16 @@ export namespace <%= messageProtoModel.message.messageName %> {
     <%_ } -%>
     <%- value.camelCaseName %>: <%- value.fieldObjectType -%>,
   <%_ }); -%>
+  }
 
   <%_ if (messageProtoModel.message.nestedTypes) { -%>
   <%_ messageProtoModel.message.nestedTypes.forEach(function(value) { -%>
-  <%= include('message.tmpl', { messageProtoModel: value }) %>
+  <%- include('message.tmpl', { messageProtoModel: value }) %>
   <%_ }) -%>
   <%_ } -%>
   <%_ if (messageProtoModel.message.formattedEnumListStr) { -%>
   <%_ messageProtoModel.message.formattedEnumListStr.forEach(function(value) { -%>
+  <%- include('enum.tmpl', {enumModel: value}) %>
   <%_ }) -%>
   <%_ } -%>
   <%_ if (messageProtoModel.message.formattedOneofListStr) { -%>
@@ -37,5 +39,4 @@ export namespace <%= messageProtoModel.message.messageName %> {
   <%_ messageProtoModel.message.formattedExtListStr.forEach(function(value) { -%>
   <%_ }) -%>
   <%_ } -%>
-  }
 }

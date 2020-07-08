@@ -1,4 +1,0 @@
---<%= getCommentPrefixing(`rpc ${name}(`) %>
-  public <%= _.lowerFirst(name) %>(<%= req.empty ? '' : `req: ${requestTsType}` %>, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientUnaryCall;
-  public <%= _.lowerFirst(name) %>(<%= req.empty ? '' : `req: ${requestTsType}` %>, metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientUnaryCall;
-  public <%= _.lowerFirst(name) %>(<%= req.empty ? '' : `req: ${requestTsType}` %>, metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientUnaryCall;

@@ -1,5 +1,5 @@
-export enum <%= enumName %> {
-  <% _forEach(values, function(value, key) { %>
-     <%- key%> = <%- value %>,
-  <% } %>
+export enum <%= enumModel.enumName %> {
+  <%_ for(let key in enumModel.values) { -%>
+     <%- key%> = <%- enumModel.values[key] %>,
+  <%_ } -%>
 }

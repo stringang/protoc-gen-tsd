@@ -1,4 +1,4 @@
-.idea/
+.idea/**/*
 .gitignore
 .prettierrc
 .travis.yml
@@ -8,9 +8,10 @@ node_modules/
 CONTRIBUTE.md
 
 # source
-**/*.ts
-*.ts
-/test
+src/**/*
+test/**/*
+examples/**/*
+docs/**/*
 
 # definitions
 !**/*.d.ts
@@ -22,7 +23,23 @@ gulpfile.js
 tsconfig.json
 tslint.json
 tools
-/test/jest-config.json
-/.vscode
+.vscode/**/*
+.eslintrc
+.eslintignore
+.editorconfig
+.gitattributes
+.github/**/*
+.circleci
+.travis.yml
+yarn.lock
+package-lock.json
+CONTRIBUTING.md
+.dockerignore
+Dockerfile
+.DS_Store
+.eslintrc.json
+.yarnrc
+.prettierrc
+.commitlintrc.json
+gulpfile.js
 
-/examples

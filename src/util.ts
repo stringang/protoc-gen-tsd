@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash';
+import camelCase from 'lodash.camelcase';
 import { FileDescriptorProto } from 'google-protobuf/google/protobuf/descriptor_pb';
 import { IExportEnumEntry, IExportMessageEntry } from './proto-ast-map';
 

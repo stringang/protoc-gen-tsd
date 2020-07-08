@@ -1,3 +1,0 @@
---<%= getCommentPrefixing(`rpc ${name}(`) %>
-  public <%= _.lowerFirst(name) %>(<%= req.empty ? '' : `req: ${requestTsType}` %>, options?: Partial<grpc.CallOptions>): grpc.ClientReadableStream<<%= responseTsType %>>;
-  public <%= _.lowerFirst(name) %>(<%= req.empty ? '' : `req: ${requestTsType}` %>, metadata?: grpc.Metadata | null, options?: grpc.CallOptions | null): grpc.ClientReadableStream<<%= responseTsType %>>;

@@ -1,10 +1,17 @@
 // package: <%= packageName %>
 // file: <%= protoFileName %>
 
+// GENERATED CODE -- DO NOT EDIT!
+
 /* tslint:disable */
 /* eslint-disable */
+
 <% imports.forEach(function(item) { %> <%- item %> <% }); %>
 
 <%_ messages.forEach(function(item) { -%>
-<%= include('message.tmpl', { messageProtoModel: item }) %>
+<%- include('message.tmpl', { messageProtoModel: item }) %>
+<%_ }); -%>
+
+<%_ enums.forEach(function(item) { -%>
+<%- include('enum.tmpl', { enumModel: item }) %>
 <%_ }); -%>

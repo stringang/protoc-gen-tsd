@@ -1,0 +1,249 @@
+{
+  "packageName": "helloworld",
+  "protoFileName": "examples/protos/echo.proto",
+  "imports": [],
+  "messages": [
+    {
+      "indent": "",
+      "objectTypeName": "AsObject",
+      "BYTES_TYPE": 12,
+      "MESSAGE_TYPE": 11,
+      "message": {
+        "messageName": "EchoRequest",
+        "oneofGroups": [],
+        "oneofDeclList": [],
+        "fields": [
+          {
+            "snakeCaseName": "id",
+            "camelCaseName": "id",
+            "camelUpperName": "Id",
+            "fieldObjectType": "number",
+            "exportType": "number",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": false,
+            "type": 5
+          },
+          {
+            "snakeCaseName": "name",
+            "camelCaseName": "name",
+            "camelUpperName": "Name",
+            "fieldObjectType": "string",
+            "exportType": "string",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": false,
+            "type": 9
+          },
+          {
+            "snakeCaseName": "email",
+            "camelCaseName": "email",
+            "camelUpperName": "Email",
+            "fieldObjectType": "string",
+            "exportType": "string",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": false,
+            "type": 9
+          },
+          {
+            "snakeCaseName": "phones",
+            "camelCaseName": "phones",
+            "camelUpperName": "Phones",
+            "fieldObjectType": "",
+            "exportType": "EchoRequest.PhoneNumber",
+            "isMapField": false,
+            "isRepeatField": true,
+            "isOptionalValue": true,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": false,
+            "type": 11
+          }
+        ],
+        "nestedTypes": [
+          {
+            "indent": "    ",
+            "objectTypeName": "AsObject",
+            "BYTES_TYPE": 12,
+            "MESSAGE_TYPE": 11,
+            "message": {
+              "messageName": "PhoneNumber",
+              "oneofGroups": [],
+              "oneofDeclList": [],
+              "fields": [
+                {
+                  "snakeCaseName": "number",
+                  "camelCaseName": "number",
+                  "camelUpperName": "Number",
+                  "fieldObjectType": "string",
+                  "exportType": "string",
+                  "isMapField": false,
+                  "isRepeatField": false,
+                  "isOptionalValue": false,
+                  "canBeUndefined": false,
+                  "hasClearMethodCreated": false,
+                  "hasFieldPresence": false,
+                  "type": 9
+                },
+                {
+                  "snakeCaseName": "type",
+                  "camelCaseName": "type",
+                  "camelUpperName": "Type",
+                  "fieldObjectType": "EchoRequest.PhoneType",
+                  "exportType": "EchoRequest.PhoneType",
+                  "isMapField": false,
+                  "isRepeatField": false,
+                  "isOptionalValue": false,
+                  "canBeUndefined": false,
+                  "hasClearMethodCreated": false,
+                  "hasFieldPresence": false,
+                  "type": 14
+                }
+              ],
+              "nestedTypes": [],
+              "formattedEnumListStr": [],
+              "formattedOneofListStr": [],
+              "formattedExtListStr": []
+            }
+          }
+        ],
+        "formattedEnumListStr": [
+          {
+            "indent": "    ",
+            "enumName": "PhoneType",
+            "values": {
+              "MOBILE": 0,
+              "HOME": 1,
+              "WORK": 2
+            }
+          }
+        ],
+        "formattedOneofListStr": [],
+        "formattedExtListStr": []
+      }
+    },
+    {
+      "indent": "",
+      "objectTypeName": "AsObject",
+      "BYTES_TYPE": 12,
+      "MESSAGE_TYPE": 11,
+      "message": {
+        "messageName": "EchoResponse",
+        "oneofGroups": [],
+        "oneofDeclList": [],
+        "fields": [
+          {
+            "snakeCaseName": "message",
+            "camelCaseName": "message",
+            "camelUpperName": "Message",
+            "fieldObjectType": "string",
+            "exportType": "string",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": false,
+            "type": 9
+          }
+        ],
+        "nestedTypes": [],
+        "formattedEnumListStr": [],
+        "formattedOneofListStr": [],
+        "formattedExtListStr": []
+      }
+    },
+    {
+      "indent": "",
+      "objectTypeName": "AsObject",
+      "BYTES_TYPE": 12,
+      "MESSAGE_TYPE": 11,
+      "message": {
+        "messageName": "OneOfValues",
+        "oneofGroups": [],
+        "oneofDeclList": [
+          {
+            "wrappers_": null,
+            "arrayIndexOffset_": -1,
+            "array": [
+              "oneof_choice"
+            ],
+            "pivot_": 1.7976931348623157e+308,
+            "convertedPrimitiveFields_": {}
+          }
+        ],
+        "fields": [
+          {
+            "snakeCaseName": "int_choice",
+            "camelCaseName": "intChoice",
+            "camelUpperName": "IntChoice",
+            "fieldObjectType": "number",
+            "exportType": "number",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": true,
+            "type": 5
+          },
+          {
+            "snakeCaseName": "string_choice",
+            "camelCaseName": "stringChoice",
+            "camelUpperName": "StringChoice",
+            "fieldObjectType": "string",
+            "exportType": "string",
+            "isMapField": false,
+            "isRepeatField": false,
+            "isOptionalValue": false,
+            "canBeUndefined": false,
+            "hasClearMethodCreated": false,
+            "hasFieldPresence": true,
+            "type": 9
+          }
+        ],
+        "nestedTypes": [],
+        "formattedEnumListStr": [],
+        "formattedOneofListStr": [
+          {
+            "indent": "    ",
+            "oneofName": "oneof_choice",
+            "oneofNameUpper": "ONEOF_CHOICE",
+            "fields": {
+              "INT_CHOICE": 1,
+              "STRING_CHOICE": 2
+            }
+          }
+        ],
+        "formattedExtListStr": []
+      }
+    }
+  ],
+  "extensions": [
+    {
+      "indent": "",
+      "extensionName": "redact",
+      "fieldType": "boolean"
+    }
+  ],
+  "enums": [
+    {
+      "indent": "",
+      "enumName": "Status",
+      "values": {
+        "UNKNOWN": 0,
+        "SUCCESS": 1
+      }
+    }
+  ]
+}

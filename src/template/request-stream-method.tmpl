@@ -1,5 +1,0 @@
---<%= getCommentPrefixing(`rpc ${name}(`) %>
-  public <%= _.lowerFirst(name) %>(callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientWritableStream<<%= requestTsType %>>;
-  public <%= _.lowerFirst(name) %>(metadata: grpc.Metadata, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientWritableStream<<%= requestTsType %>>;
-  public <%= _.lowerFirst(name) %>(options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientWritableStream<<%= requestTsType %>>;
-  public <%= _.lowerFirst(name) %>(metadata: grpc.Metadata, options: Partial<grpc.CallOptions>, callback: (error: grpc.ServiceError | null, response: <%= responseTsType %>) => void): grpc.ClientWritableStream<<%= requestTsType %>>;
