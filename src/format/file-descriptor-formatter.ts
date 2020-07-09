@@ -42,6 +42,7 @@ export function formatFileDescriptorProto(
   // get relative to root path
   const upToRoot = getPathToRoot(protoFileName);
 
+  /** proto dependencies */
   fileDescriptorProto.getDependencyList().forEach((dependency: string) => {
     if (DependencyFilter.indexOf(dependency) !== -1) {
       return; // filtered

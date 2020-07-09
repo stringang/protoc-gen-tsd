@@ -29,8 +29,6 @@ import {
   withinNamespaceFromExportEntry,
 } from '../util';
 
-export const OBJECT_TYPE_NAME = 'AsObject';
-
 export interface IMessageType {
   messageName: string;
   oneofGroups: FieldDescriptorProto[][];
@@ -44,7 +42,6 @@ export interface IMessageType {
 
 export interface IMessageDescriptorProtoModel {
   indent: string;
-  objectTypeName: string;
   BYTES_TYPE: number;
   MESSAGE_TYPE: number;
   message: IMessageType;
@@ -147,7 +144,7 @@ export function formatMessageTypeDescriptorProto(
 
   const oneofGroups: FieldDescriptorProto[][] = [];
 
-  /** message field */
+  /** message fields */
   messageTypeDescriptorProto.getFieldList().forEach((field: FieldDescriptorProto) => {
     const fieldData = JSON.parse(DefaultMessageFieldType) as IMessageFieldType;
 
@@ -252,7 +249,6 @@ export function formatMessageTypeDescriptorProto(
       let fieldObjectType = exportType;
       let canBeUndefined = false;
       if (fieldData.type === MESSAGE_TYPE) {
-        fieldObjectType += '.AsObject';
         if (
           !isProto2Syntax(fileDescriptorProto) ||
           field.getLabel() === FieldDescriptorProto.Label.LABEL_OPTIONAL
@@ -307,7 +303,6 @@ export function formatMessageTypeDescriptorProto(
 
   return {
     indent,
-    objectTypeName: OBJECT_TYPE_NAME,
     BYTES_TYPE,
     MESSAGE_TYPE,
     message: messageData,

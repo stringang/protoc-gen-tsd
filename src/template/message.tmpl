@@ -2,7 +2,7 @@ export namespace <%= messageProtoModel.message.messageName %> {
   export interface I<%= messageProtoModel.message.messageName %> {
   <%_ messageProtoModel.message.fields.forEach(function(value) { -%>
     <%_ if (value.isMapField) { -%>
-    <%- value.camelCaseName %>: Map< <%- value.mapFieldInfo.keyTypeName %>, <%- value.mapFieldInfo.valueTypeName %> >
+    <%- value.camelCaseName %>: Map<<%- value.mapFieldInfo.keyTypeName %>, <%- value.mapFieldInfo.valueTypeName -%>>,
     <%_ return; -%>
     <%_ } -%>
     <%_ if(value.isRepeatField && value.type === messageProtoModel.BYTES_TYPE) { -%>
@@ -10,11 +10,19 @@ export namespace <%= messageProtoModel.message.messageName %> {
     <%_ return; -%>
     <%_ } -%>
     <%_ if (value.isRepeatField) { -%>
-    <%- value.camelCaseName %>: Array<<%= value.exportType %>>
+    <%_ if (value.type === messageProtoModel.MESSAGE_TYPE) { -%>
+    <%- value.camelCaseName %>: Array<<%- value.exportType -%>.I<%= value.exportType.split(".").pop() %>>,
+    <%_ return; -%>
+    <%_ } -%>
+    <%- value.camelCaseName %>: Array<<%- value.exportType -%>>,
     <%_ return; -%>
     <%_ } -%>
     <%_ if (value.type == messageProtoModel.BYTES_TYPE) { -%>
     <%- value.camelCaseName %>: Uint8Array | string,
+    <%_ return; -%>
+    <%_ } -%>
+    <%_ if (value.type == messageProtoModel.MESSAGE_TYPE) { -%>
+    <%- value.camelCaseName %>: <%- value.fieldObjectType -%>.I<%- value.fieldObjectType -%>,
     <%_ return; -%>
     <%_ } -%>
     <%- value.camelCaseName %>: <%- value.fieldObjectType -%>,

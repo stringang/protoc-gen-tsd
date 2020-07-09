@@ -12,7 +12,7 @@ import {
 import { renderTemplate } from './tmpl-engine';
 
 /**
- * This is the ProtoC compiler plugin.
+ * This is the Protocol compiler(protoc) plugin.
  *
  * It only accepts stdin/stdout output according to the protocol
  * specified in [plugin.protos](https://github.com/google/protobuf/blob/master/src/google/protobuf/compiler/plugin.proto).
@@ -26,10 +26,6 @@ withAllStdIn((inputBuff: Buffer) => {
     const codeGenResponse = new CodeGeneratorResponse();
     const protoAbstractSyntaxTreeMap = new ProtoAbstractSyntaxTreeMap();
     const fileNameToDescriptor: { [key: string]: FileDescriptorProto } = {};
-
-    // Generate separate `.ts` files for services if param is set
-    const parameter = codeGenRequest.getParameter();
-    const generateGrpcNodeServices = parameter === 'service=grpc-node';
 
     // wrap proto abstract syntax tree structure
     codeGenRequest.getProtoFileList().forEach((protoFileDescriptor: FileDescriptorProto) => {

@@ -41,14 +41,11 @@ export function getPathToRoot(fileName: string) {
 }
 
 export function filePathToPseudoNamespace(filePath: string): string {
-  return (
-    filePath.replace('.proto', '').replace(/\//g, '_').replace(/\./g, '_').replace(/-/g, '_') +
-    '_pb'
-  );
+  return filePath.replace('.proto', '').replace(/\//g, '_').replace(/\./g, '_').replace(/-/g, '_');
 }
 
 export function filePathFromProtoWithoutExt(protoFilePath: string): string {
-  return protoFilePath.replace('.proto', '_pb');
+  return protoFilePath.replace('.proto', '');
 }
 
 export function replaceProtoSuffix(protoFilePath: string): string {
