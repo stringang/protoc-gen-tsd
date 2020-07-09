@@ -1,0 +1,31 @@
+name: "release"
+
+on:
+  release:
+    types: [created]
+
+env:
+  CI: true
+
+jobs:
+  publish-canary:
+    name: "publish"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+          registry-url: 'https://registry.npmjs.org'
+      - uses: microsoft/playwright-github-action@v1
+      - run: npm ci
+      - run: npm run build
+      - run: npm pulibsh --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - uses: actions/setup-node@v1
+        with:
+          registry-url: 'https://npm.pkg.github.com'
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
