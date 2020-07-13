@@ -10,7 +10,7 @@ export interface IEnumDescriptorProtoModel {
 }
 
 /**
- * convert EnumDescriptorProto
+ * convert .proto file EnumDescriptorProto
  * @param enumDescriptor
  * @param indent
  */

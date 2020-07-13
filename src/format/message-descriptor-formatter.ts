@@ -33,17 +33,20 @@ export interface IMessageType {
   messageName: string;
   oneofGroups: FieldDescriptorProto[][];
   oneofDeclList: OneofDescriptorProto[];
-  fields: IMessageFieldType[];
-  nestedTypes: IMessageDescriptorProtoModel[];
+  fields: IMessageFieldType[]; // message field
+  nestedTypes: IMessageDescriptorProtoModel[]; // nested message type
   formattedEnumListStr: IEnumDescriptorProtoModel[];
   formattedOneofListStr: IOneofDescriptorProtoModel[];
   formattedExtListStr: IExtensionDescriptorProtoModel[];
 }
 
+/**
+ * collect .proto file message type data
+ */
 export interface IMessageDescriptorProtoModel {
   indent: string;
-  BYTES_TYPE: number;
-  MESSAGE_TYPE: number;
+  BYTES_TYPE: number; // field bytes type
+  MESSAGE_TYPE: number; // field (nested) message type
   message: IMessageType;
 }
 
@@ -63,7 +66,7 @@ export interface IMessageFieldType {
   camelCaseName: string;
   camelUpperName: string;
   fieldObjectType: string;
-  type: FieldDescriptorProto.Type;
+  type: FieldDescriptorProto.Type; // field type
   exportType: string;
   isMapField: boolean;
   mapFieldInfo?: IMessageMapField;
@@ -117,12 +120,13 @@ function hasFieldPresence(
 }
 
 /**
- * convert message type(DescriptorProto)
+ * convert .proto file message type(DescriptorProto)
  * @param protoFileName
  * @param exportMap
  * @param messageTypeDescriptorProto
  * @param indent
  * @param fileDescriptorProto
+ * reference: protobuf/descriptor.proto
  */
 export function formatMessageTypeDescriptorProto(
   protoFileName: string,
@@ -162,11 +166,13 @@ export function formatMessageTypeDescriptorProto(
     fieldData.snakeCaseName = field.getName().toLowerCase();
     fieldData.camelCaseName = snakeToCamel(fieldData.snakeCaseName);
     fieldData.camelUpperName = uppercaseFirst(fieldData.camelCaseName);
+
     // handle reserved keywords in field names like Javascript generator
     // see: https://github.com/google/protobuf/blob/ed4321d1cb33199984118d801956822842771e7e/src/google/protobuf/compiler/js/js_generator.cc#L508-L510
     if (isReservedWord(fieldData.camelCaseName)) {
       fieldData.camelCaseName = `pb_${fieldData.camelCaseName}`;
     }
+
     fieldData.type = field.getType();
     fieldData.isMapField = false;
     fieldData.canBeUndefined = false;
@@ -283,10 +289,12 @@ export function formatMessageTypeDescriptorProto(
     }
   });
 
+  /** message enum type */
   messageTypeDescriptorProto.getEnumTypeList().forEach((enumType: EnumDescriptorProto) => {
     messageData.formattedEnumListStr.push(formatEnumDescriptorProto(enumType, nextIndent));
   });
 
+  /** message oneof type */
   messageTypeDescriptorProto
     .getOneofDeclList()
     .forEach((oneOfDecl: OneofDescriptorProto, index: number) => {
@@ -295,6 +303,7 @@ export function formatMessageTypeDescriptorProto(
       );
     });
 
+  /** message extension type */
   messageTypeDescriptorProto.getExtensionList().forEach((extension: FieldDescriptorProto) => {
     messageData.formattedExtListStr.push(
       formatExtensionDescriptorProto(protoFileName, exportMap, extension, nextIndent)
