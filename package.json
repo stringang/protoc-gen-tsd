@@ -1,6 +1,6 @@
 {
   "name": "protoc-gen-tsd",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generate protocol buffer for TypeScript definitions",
   "keywords": [
     "protocol-buffer",
