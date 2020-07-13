@@ -1,5 +1,8 @@
 # protoc-gen-tsd
 
+![npm](https://img.shields.io/npm/v/protoc-gen-tsd?logo=Npm%20Version%20)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/stringang/protoc-gen-tsd?logo=Github)
+
 > Protoc Plugin for generating TypeScript definition
 
 The library exports the `protoc-gen-tsd` executable, which generates a TypeScript definition file(`.d.ts` file).
@@ -15,8 +18,10 @@ npm install protoc-gen-tsd
 ### Usage
 
 ```shell
-export PATH ="./node_modules/.bin/:$PATH"
+export PATH=./node_modules/.bin:$PATH
+# single .proto file
 protoc --tsd_out=./examples/protos ./examples/protos/echo.proto
+# multiple .proto file
 protoc --tsd_out=./examples/protos -I=./examples/protos ./examples/protos/*.proto
 ```
 
@@ -47,6 +52,6 @@ So, to work with TypeScript you only need to declare the type protobuf message.
 
 ```shell
 #!/usr/bin/env node --inspect-brk --require ts-node/register ./src/index.ts
-export PATH ="./bin/:$PATH"
+export PATH=./bin:$PATH
 protoc --tsd_out=. examples/protos/echo.proto
 ```

@@ -1,7 +1,7 @@
 {
   "name": "protoc-gen-tsd",
-  "version": "0.0.3",
-  "description": "Generate protocol buffer for TypeScript definitions",
+  "version": "0.0.4",
+  "description": "Protocol Buffers Compiler(protoc) plugin for TypeScript - Generate definition file(d.ts)",
   "keywords": [
     "protocol-buffer",
     "protobuf",
@@ -19,7 +19,7 @@
   "types": "lib/index.d.ts",
   "author": "stringang",
   "bin": {
-    "proto-gen-tsd": "bin/protoc-gen-tsd"
+    "protoc-gen-tsd": "bin/protoc-gen-tsd"
   },
   "repository": {
     "type": "git",
