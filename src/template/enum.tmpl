@@ -1,4 +1,4 @@
-export enum <%= enumModel.enumName %> {
+export const enum <%= enumModel.enumName %> {
   <%_ for(let key in enumModel.values) { -%>
      <%- key%> = <%- enumModel.values[key] %>,
   <%_ } -%>
