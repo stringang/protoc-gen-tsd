@@ -16,6 +16,8 @@ import { renderTemplate } from './tmpl-engine';
  *
  * It only accepts stdin/stdout output according to the protocol
  * specified in [plugin.protos](https://github.com/google/protobuf/blob/master/src/google/protobuf/compiler/plugin.proto).
+ *
+ * https://github.com/improbable-eng/ts-protoc-gen
  */
 withAllStdIn((inputBuff: Buffer) => {
   try {

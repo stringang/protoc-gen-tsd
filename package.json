@@ -28,6 +28,8 @@
   "scripts": {
     "build": "npm run compile",
     "clean": "rimraf lib/",
+    "test": "mocha --require ts-node/register test/**/*.spec.ts",
+    "test:coverage": "nyc npm run test",
     "compile": "gulp",
     "format": "prettier \"**/*.{ts,md}\" --write",
     "lint": "tslint -c tslint.json \"src/**/*.ts\""
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@commitlint/cli": "^9.0.1",
     "@commitlint/config-angular": "^9.0.1",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/ejs": "^3.0.4",
     "@types/google-protobuf": "^3.7.2",
     "@types/lodash.camelcase": "^4.3.6",
@@ -53,6 +56,7 @@
     "lint-staged": "^10.2.11",
     "merge2": "^1.4.1",
     "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
@@ -74,5 +78,16 @@
       "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "check-coverage": true,
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "cache": true,
+    "sourceMap": true,
+    "instrument": true
   }
 }

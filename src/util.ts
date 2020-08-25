@@ -4,6 +4,9 @@ import { IExportEnumEntry, IExportMessageEntry } from './proto-ast-map';
 
 const PROTO2_SYNTAX = 'proto2';
 
+/**
+ * reading stdin `CodeGeneratorRequest` type data
+ */
 export function withAllStdIn(callback: (buffer: Buffer) => void): void {
   const ret: Buffer[] = [];
   let len = 0;
