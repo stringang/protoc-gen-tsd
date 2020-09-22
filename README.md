@@ -55,3 +55,9 @@ So, to work with TypeScript you only need to declare the type protobuf message.
 export PATH=./bin:$PATH
 protoc --tsd_out=. examples/protos/echo.proto
 ```
+
+### ejs
+
+```ejs
+<% debugger; %>
+```
