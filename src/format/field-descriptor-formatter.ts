@@ -57,13 +57,13 @@ export function getJsTypeName(fieldTypeNum: number): string {
  * @param type
  * @param typeName
  * @param currentFileName
- * @param exportMap
+ * @param protoAbstractSyntaxTreeMap
  */
 export function getFieldType(
   type: FieldDescriptorProto.Type,
   typeName: string,
   currentFileName: string,
-  exportMap: ProtoAbstractSyntaxTreeMap
+  protoAbstractSyntaxTreeMap: ProtoAbstractSyntaxTreeMap
 ): string {
   let fieldType: string;
   let fromExport: IExportMessageEntry | IExportEnumEntry;
@@ -71,7 +71,7 @@ export function getFieldType(
 
   switch (type) {
     case MESSAGE_TYPE:
-      fromExport = exportMap.getMessage(typeName);
+      fromExport = protoAbstractSyntaxTreeMap.getMessage(typeName);
       if (!fromExport) {
         throw new Error('Could not getFieldType for message: ' + typeName);
       }
@@ -84,7 +84,7 @@ export function getFieldType(
       break;
 
     case ENUM_TYPE:
-      fromExport = exportMap.getEnum(typeName);
+      fromExport = protoAbstractSyntaxTreeMap.getEnum(typeName);
       if (!fromExport) {
         throw new Error('Could not getFieldType for enum: ' + typeName);
       }

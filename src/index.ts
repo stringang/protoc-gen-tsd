@@ -19,43 +19,39 @@ import { renderTemplate } from './tmpl-engine';
  *
  * https://github.com/improbable-eng/ts-protoc-gen
  */
-withAllStdIn((inputBuff: Buffer) => {
+withAllStdIn((inputBuffer: Buffer) => {
   try {
-    const typedInputBuff = new Uint8Array(inputBuff.length);
-    typedInputBuff.set(inputBuff);
+    const typedInputBuffer = new Uint8Array(inputBuffer.length);
+    typedInputBuffer.set(inputBuffer);
 
-    const codeGenRequest = CodeGeneratorRequest.deserializeBinary(typedInputBuff);
+    const codeGenRequest = CodeGeneratorRequest.deserializeBinary(typedInputBuffer);
+    // plugin output data format
     const codeGenResponse = new CodeGeneratorResponse();
     const protoAbstractSyntaxTreeMap = new ProtoAbstractSyntaxTreeMap();
     const fileNameToDescriptor: { [key: string]: FileDescriptorProto } = {};
 
-    // wrap proto abstract syntax tree structure
-    codeGenRequest.getProtoFileList().forEach((protoFileDescriptor: FileDescriptorProto) => {
-      fileNameToDescriptor[protoFileDescriptor.getName()] = protoFileDescriptor;
-      protoAbstractSyntaxTreeMap.addFileDescriptor(protoFileDescriptor);
+    // all top-level definition collection. include import .proto file
+    codeGenRequest.getProtoFileList().forEach((fileDescriptorProto: FileDescriptorProto) => {
+      fileNameToDescriptor[fileDescriptorProto.getName()] = fileDescriptorProto;
+      protoAbstractSyntaxTreeMap.addFileDescriptorProto(fileDescriptorProto);
     });
 
-    // generate .d.ts type file
-    codeGenRequest.getFileToGenerateList().forEach((fileName: string) => {
+    // generate .d.ts type file. traversal generate file list
+    codeGenRequest.getFileToGenerateList().forEach((fullyQualifiedFileName: string) => {
       // message type definition
-      const outputFileName = replaceProtoSuffix(fileName);
+      const outputFileName = replaceProtoSuffix(fullyQualifiedFileName);
       const messageTypeDefinitionFile = new CodeGeneratorResponse.File();
       messageTypeDefinitionFile.setName(outputFileName + '.d.ts');
 
       const messageProtoModel: IFileDescriptorProtoModel = formatFileDescriptorProto(
-        fileNameToDescriptor[fileName],
+        fileNameToDescriptor[fullyQualifiedFileName],
         protoAbstractSyntaxTreeMap
       );
 
       messageTypeDefinitionFile.setContent(renderTemplate('proto-tsd.tmpl', messageProtoModel));
       codeGenResponse.addFile(messageTypeDefinitionFile);
 
-      // const file = generateGrpcNodeService(
-      //   outputFileName,
-      //   fileNameToDescriptor[fileName],
-      //   exportMap
-      // );
-      // codeGenResponse.addFile(file);
+      // todo generate RPC service type file
     });
 
     process.stdout.write(Buffer.from(codeGenResponse.serializeBinary()));

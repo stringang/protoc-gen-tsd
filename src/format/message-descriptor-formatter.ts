@@ -122,7 +122,7 @@ function hasFieldPresence(
 /**
  * convert .proto file message type(DescriptorProto)
  * @param protoFileName
- * @param exportMap
+ * @param protoAbstractSyntaxTreeMap
  * @param messageTypeDescriptorProto
  * @param indent
  * @param fileDescriptorProto
@@ -130,7 +130,7 @@ function hasFieldPresence(
  */
 export function formatMessageTypeDescriptorProto(
   protoFileName: string,
-  exportMap: ProtoAbstractSyntaxTreeMap,
+  protoAbstractSyntaxTreeMap: ProtoAbstractSyntaxTreeMap,
   messageTypeDescriptorProto: DescriptorProto,
   indent: string,
   fileDescriptorProto: FileDescriptorProto
@@ -181,7 +181,7 @@ export function formatMessageTypeDescriptorProto(
     const fullTypeName = field.getTypeName().slice(1);
 
     if (fieldData.type === MESSAGE_TYPE) {
-      const fieldMessageType = exportMap.getMessage(fullTypeName);
+      const fieldMessageType = protoAbstractSyntaxTreeMap.getMessage(fullTypeName);
       if (fieldMessageType === undefined) {
         throw new Error('No message export for: ' + fullTypeName);
       }
@@ -193,14 +193,19 @@ export function formatMessageTypeDescriptorProto(
         const mapData = {} as IMessageMapField;
         const keyTuple = fieldMessageType.mapFieldOptions!.key;
         const keyType = keyTuple[0];
-        const keyTypeName = getFieldType(keyType, keyTuple[1] as string, protoFileName, exportMap);
+        const keyTypeName = getFieldType(
+          keyType,
+          keyTuple[1] as string,
+          protoFileName,
+          protoAbstractSyntaxTreeMap
+        );
         const valueTuple = fieldMessageType.mapFieldOptions!.value;
         const valueType = valueTuple[0];
         let valueTypeName = getFieldType(
           valueType,
           valueTuple[1] as string,
           protoFileName,
-          exportMap
+          protoAbstractSyntaxTreeMap
         );
         if (valueType === BYTES_TYPE) {
           valueTypeName = 'Uint8Array | string';
@@ -223,7 +228,7 @@ export function formatMessageTypeDescriptorProto(
       }
       fieldData.exportType = exportType;
     } else if (fieldData.type === ENUM_TYPE) {
-      const fieldEnumType = exportMap.getEnum(fullTypeName);
+      const fieldEnumType = protoAbstractSyntaxTreeMap.getEnum(fullTypeName);
       if (fieldEnumType === undefined) {
         throw new Error('No enum export for: ' + fullTypeName);
       }
@@ -278,7 +283,7 @@ export function formatMessageTypeDescriptorProto(
   messageTypeDescriptorProto.getNestedTypeList().forEach((nestedMessage: DescriptorProto) => {
     const msgOutput = formatMessageTypeDescriptorProto(
       protoFileName,
-      exportMap,
+      protoAbstractSyntaxTreeMap,
       nestedMessage,
       nextIndent,
       fileDescriptorProto
@@ -306,7 +311,12 @@ export function formatMessageTypeDescriptorProto(
   /** message extension type */
   messageTypeDescriptorProto.getExtensionList().forEach((extension: FieldDescriptorProto) => {
     messageData.formattedExtListStr.push(
-      formatExtensionDescriptorProto(protoFileName, exportMap, extension, nextIndent)
+      formatExtensionDescriptorProto(
+        protoFileName,
+        protoAbstractSyntaxTreeMap,
+        extension,
+        nextIndent
+      )
     );
   });
 

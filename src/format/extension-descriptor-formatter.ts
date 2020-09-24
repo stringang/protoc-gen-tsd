@@ -11,7 +11,7 @@ export interface IExtensionDescriptorProtoModel {
 
 export function formatExtensionDescriptorProto(
   fileName: string,
-  exportMap: ProtoAbstractSyntaxTreeMap,
+  protoAbstractSyntaxTreeMap: ProtoAbstractSyntaxTreeMap,
   extension: FieldDescriptorProto,
   indent: string
 ): IExtensionDescriptorProtoModel {
@@ -25,7 +25,7 @@ export function formatExtensionDescriptorProto(
     extension.getType(),
     extension.getTypeName().slice(1),
     fileName,
-    exportMap
+    protoAbstractSyntaxTreeMap
   );
 
   return {

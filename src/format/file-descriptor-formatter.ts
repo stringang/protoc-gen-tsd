@@ -27,6 +27,12 @@ export interface IFileDescriptorProtoModel {
   enums: IEnumDescriptorProtoModel[];
 }
 
+/**
+ * build template data
+ * @param fileDescriptorProto
+ * @param protoAbstractSyntaxTreeMap
+ * @return IFileDescriptorProtoModel
+ */
 export function formatFileDescriptorProto(
   fileDescriptorProto: FileDescriptorProto,
   protoAbstractSyntaxTreeMap: ProtoAbstractSyntaxTreeMap
@@ -42,7 +48,7 @@ export function formatFileDescriptorProto(
   // get relative to root path
   const upToRoot = getPathToRoot(protoFileName);
 
-  /** proto dependencies */
+  /** import dependencies in the .proto file */
   fileDescriptorProto.getDependencyList().forEach((dependency: string) => {
     if (DependencyFilter.indexOf(dependency) !== -1) {
       return; // filtered
@@ -56,7 +62,7 @@ export function formatFileDescriptorProto(
     }
   });
 
-  /** proto file top-level type */
+  /** .proto file message top-level type */
   fileDescriptorProto.getMessageTypeList().forEach((messageType: DescriptorProto) => {
     messages.push(
       formatMessageTypeDescriptorProto(
@@ -69,12 +75,7 @@ export function formatFileDescriptorProto(
     );
   });
 
-  fileDescriptorProto.getExtensionList().forEach((extension: FieldDescriptorProto) => {
-    extensions.push(
-      formatExtensionDescriptorProto(protoFileName, protoAbstractSyntaxTreeMap, extension, '')
-    );
-  });
-
+  // .proto file enum top-level type
   fileDescriptorProto.getEnumTypeList().forEach((enumType: EnumDescriptorProto) => {
     enums.push(formatEnumDescriptorProto(enumType, ''));
   });
