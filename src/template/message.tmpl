@@ -2,7 +2,7 @@ export namespace <%= messageProtoModel.message.messageName %> {
   export interface I<%= messageProtoModel.message.messageName %> {
   <%_ messageProtoModel.message.fields.forEach(function(value) { -%>
     <%_ if (value.isMapField) { -%>
-    <%- value.camelCaseName %>: Map<<%- value.mapFieldInfo.keyTypeName %><%_ if (value.mapFieldInfo.keyType === messageProtoModel.MESSAGE_TYPE) { -%>.I<%= value.mapFieldInfo.keyTypeName %><%_ } -%>, <%- value.mapFieldInfo.valueTypeName -%><%_ if (value.mapFieldInfo.valueType === messageProtoModel.MESSAGE_TYPE) { -%>.I<%= value.mapFieldInfo.valueTypeName %><%_ } -%>>,
+    <%- value.camelCaseName %>: { [k: <%- value.mapFieldInfo.keyTypeName %><%_ if (value.mapFieldInfo.keyType === messageProtoModel.MESSAGE_TYPE) { -%>.I<%= value.mapFieldInfo.keyTypeName %><%_ } -%>]: <%- value.mapFieldInfo.valueTypeName -%><%_ if (value.mapFieldInfo.valueType === messageProtoModel.MESSAGE_TYPE) { -%>.I<%= value.mapFieldInfo.valueTypeName %><%_ } -%> | null },
     <%_ return; -%>
     <%_ } -%>
     <%_ if(value.isRepeatField && value.type === messageProtoModel.BYTES_TYPE) { -%>
