@@ -10,6 +10,7 @@ import {
   IFileDescriptorProtoModel,
 } from './format/file-descriptor-formatter';
 import { renderTemplate } from './tmpl-engine';
+import * as prettier from 'prettier';
 
 /**
  * This is the Protocol compiler(protoc) plugin.
@@ -48,7 +49,9 @@ withAllStdIn((inputBuffer: Buffer) => {
         protoAbstractSyntaxTreeMap
       );
 
-      messageTypeDefinitionFile.setContent(renderTemplate('proto-tsd.tmpl', messageProtoModel));
+      let content = renderTemplate('proto-tsd.tmpl', messageProtoModel);
+      content = prettier.format(content, { singleQuote: true, parser: 'typescript' });
+      messageTypeDefinitionFile.setContent(content);
       codeGenResponse.addFile(messageTypeDefinitionFile);
 
       // todo generate RPC service type file
