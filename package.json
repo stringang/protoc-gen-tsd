@@ -1,6 +1,6 @@
 {
   "name": "protoc-gen-tsd",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Protocol Buffers Compiler(protoc) plugin for TypeScript - Generate definition file(d.ts)",
   "keywords": [
     "protocol-buffer",
