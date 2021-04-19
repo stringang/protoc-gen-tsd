@@ -22,7 +22,7 @@ export namespace <%= messageProtoModel.message.messageName %> {
     <%_ return; -%>
     <%_ } -%>
     <%_ if (value.type == messageProtoModel.MESSAGE_TYPE) { -%>
-    <%- value.camelCaseName %>: <%- value.fieldObjectType -%>.I<%- value.fieldObjectType -%>,
+    <%- value.camelCaseName %>: <%- value.fieldObjectType -%>.I<%- value.fieldObjectType.split(".").pop() -%>,
     <%_ return; -%>
     <%_ } -%>
     <%- value.camelCaseName %>: <%- value.fieldObjectType -%>,
